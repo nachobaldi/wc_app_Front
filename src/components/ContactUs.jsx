@@ -18,25 +18,32 @@ export const ContactUs = () => {
 	 */
 	const sendEmail = (e) => {
 		e.preventDefault();
-
-		emailjs
-			.sendForm(
-				"service_goyag1b",
-				"template_k1egoko",
-				form.current,
-				"user_V5GWnvouIs6O3F6Xj5u9u"
-			)
-			.then(
-				(result) => {
-					alert("email sended!");
-				},
-				(error) => {
-					alert(
-						"There was a problem, mail wasn't sended, please try again later."
-					);
-					console.log(error.text);
-				}
-			);
+		if (
+			form.current["from_name"].value == "" ||
+			form.current["user_email"].value == "" ||
+			form.current["message"].value == ""
+		) {
+			alert("Please fill all the fields ");
+		} else {
+			emailjs
+				.sendForm(
+					"service_goyag1b",
+					"template_k1egoko",
+					form.current,
+					"user_V5GWnvouIs6O3F6Xj5u9u"
+				)
+				.then(
+					(result) => {
+						alert("email sended!");
+					},
+					(error) => {
+						alert(
+							"There was a problem, mail wasn't sended, please try again later."
+						);
+						console.log(error.text);
+					}
+				);
+		}
 	};
 
 	return (

@@ -4,7 +4,7 @@ import "../App.css";
 import { useState, useEffect } from "react";
 import { NavLink, Redirect } from "react-router-dom";
 import UsersTable from "../components/UsersTable";
-import { deleteUser, getAdmins } from "../services/UserServices";
+import { deleteUser, getAdmins, logout } from "../services/UserServices";
 import Search from "../components/Search";
 import { Add } from "@mui/icons-material";
 import LoginContext from "../contexts/LoginContext";
@@ -14,6 +14,7 @@ export default function Admins(props) {
 	const [admins, setAdmins] = useState([]);
 	const [fetchAdmins, setFetchAdmins] = useState([]);
 	const [placeholder, setPlaceholder] = useState("Id,first or last name");
+	let [user, setUser] = useState([]);
 	/**
 	 * get all admins
 	 */
@@ -83,7 +84,15 @@ export default function Admins(props) {
 	function onDeleteUser(userId) {
 		deleteUser(userId)
 			.then((res) => {
+				let foundUser = "";
 				adminsUsers();
+				const loggedInUser = localStorage.getItem("user");
+				foundUser = JSON.parse(loggedInUser);
+				setUser(foundUser);
+				if (foundUser.userId == userId) {
+					logout();
+					setIsLoggedIn(false);
+				}
 			})
 			.catch((err) => alert(err.response.data));
 	}
