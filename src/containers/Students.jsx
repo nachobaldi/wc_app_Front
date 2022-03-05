@@ -4,7 +4,7 @@ import "../App.css";
 import { useState, useEffect } from "react";
 import { NavLink, Redirect } from "react-router-dom";
 import UsersTable from "../components/UsersTable";
-import { deleteUser, getStudents, logout } from "../services/UserServices";
+import { deleteUser, getStudents } from "../services/UserServices";
 import Search from "../components/Search";
 import { Add } from "@mui/icons-material";
 import LoginContext from "../contexts/LoginContext";
@@ -99,25 +99,12 @@ export default function Students(props) {
 	 * @param {number} userId
 	 */
 	function onDeleteUser(userId) {
-		const foundUser = "";
 		if (projects.find((x) => x.studentId === userId) != undefined) {
 			alert("Cannot delete user, first delete Project of User");
 		} else {
 			deleteUser(userId)
 				.then((res) => {
 					studentsUsers();
-					const loggedInUser = localStorage.getItem("user");
-					console.log(loggedInUser);
-					console.log("loggedInUser");
-
-					if (loggedInUser) {
-						foundUser = JSON.parse(loggedInUser);
-						console.log(foundUser.userId);
-						if (foundUser.userId === userId) {
-							logout();
-							setIsLoggedIn(false);
-						}
-					}
 				})
 				.catch((err) => alert(err.response.data));
 		}
