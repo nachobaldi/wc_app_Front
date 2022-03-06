@@ -45,8 +45,9 @@ export default function TaskInput(props) {
 						<TextField
 							sx={{
 								backgroundColor: "white",
+								m: 1,
+								width: "30ch",
 							}}
-							sx={{ m: 1, width: "30ch" }}
 							type="number"
 							placeholder="Enter task name"
 							value={taskPercentage}

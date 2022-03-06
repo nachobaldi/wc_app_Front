@@ -18,6 +18,7 @@ export default function UserInput(props) {
 		phoneNum,
 		typeId,
 		statusId,
+		submitStatus,
 		actionName,
 		onUserIdChange,
 		onFirstNameChange,
@@ -79,6 +80,7 @@ export default function UserInput(props) {
 	return (
 		<form>
 			<h2>{actionName} User</h2>
+			<h2 style={{ color: "red" }}>{submitStatus}</h2>
 
 			<Grid container alignItems="center" justify="center" direction="column">
 				<FormControl sx={{ m: 1, width: "30ch" }} variant="outlined">
